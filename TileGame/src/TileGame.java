@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class TileGame {
@@ -16,19 +17,22 @@ public class TileGame {
     purple = true and blue - lemons, no piranhas
      */
 
+    public static final int COLUMNS = 10;
+    public static final int ROWS = 5;
+
     private static boolean passable = true;
     private static boolean attractsPiranhas = false;
     private static boolean damage = false;
     private static boolean slide = false;
     private static boolean electric = false;
 
-    TileGameWindow tileGameWindow;
+    private JPanel tileGamePanel;
 
-    private final Tile[][] board = new Tile[10][5];
+    private final Tile[][] board = new Tile[COLUMNS][ROWS];
     private final Color[] tileColors = {Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE, Color.MAGENTA, Color.PINK};
 
-    public TileGame(TileGameWindow gameWindow) {
-        this.tileGameWindow = gameWindow;
+    public TileGame(JPanel tileGamePanel) {
+        this.tileGamePanel = tileGamePanel;
     }
 
     public void drawBoard() {
@@ -37,12 +41,12 @@ public class TileGame {
             int y = TileGameWindow.WINDOW_HEIGHT - 60;
             for (Tile tile : tiles) {
                 Double doub = new Double(Math.random()*100 % tileColors.length);
-//                tile = new Tile(tileColors[doub.intValue()]);
-//                tile.setLocation(x, y);
-//                x += 20;
-//                tileGameWindow.add(tile);
+                tile = new Tile(tileColors[doub.intValue()], x, y);
+                x += Tile.TILE_LENGTH;
+//                tileGamePanel.add(tile);
+                x += 20;
             }
-            y += 20;
+            y += Tile.TILE_LENGTH;
         }
 
 

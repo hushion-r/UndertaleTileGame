@@ -20,19 +20,24 @@ public class Tile extends Rectangle2D.Double {
     purple = true and blue - lemons, no piranhas
     */
 
+
+    public static final int TILE_LENGTH = 20;
+
     private Color tileColor;
-    Paint fill;
+    private Paint fill;
 
 
-    public Tile(Color tileColor, Graphics2D graphics2D) {
+    public Tile(Color tileColor, double x, double y) {
+        super(x, y, TILE_LENGTH, TILE_LENGTH);
         this.tileColor = tileColor;
-        this.width = 20;
-        this.height = 20;
-
-        graphics2D.fill(this);
-        graphics2D.setColor(tileColor);
+        fill = tileColor;
         
-        giveProperties(tileColor);
+        properties(tileColor);
+    }
+
+    public void paint(Graphics2D g) {
+        g.setPaint(tileColor);
+        g.fill(this);
     }
 
     /**
@@ -40,7 +45,7 @@ public class Tile extends Rectangle2D.Double {
      * Assumes no other colors will be used in constructor.
      * @param color
      */
-    public void giveProperties(Color color) {
+    public void properties(Color color) {
         if (color.equals(Color.RED)) {
             red();
         } else if (color.equals(Color.YELLOW)) {
