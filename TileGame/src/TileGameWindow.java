@@ -5,28 +5,59 @@ import java.awt.event.KeyListener;
 
 public class TileGameWindow extends JPanel implements KeyListener {
 
-    private JFrame tileGame;
-    private JPanel board;
-    private JPanel text;
-    private JLabel title;
-    private JLabel instructions;
-    public static final int WINDOW_HEIGHT = 600;
+    private JFrame window;
+    private JComponent board;
+    public final JLabel TITLE = new JLabel("Undertale Tile Game");
+    private final JTextArea instructions = new JTextArea("RED - impassable\t" +
+            "YELLOW - electric\t" +
+            "GREEN - alarm for monster\t" +
+            "ORANGE - orange scented\t" +
+            "BLUE - water\t" +
+            "PURPLE - slide\t" +
+            "PINK - nothing\t" +
+            "\n" +
+            "IF:\t" +
+            "orange = true and blue - piranhas\n" +
+            "yellow next to blue - zap\n" +
+            "purple = true and blue - lemons, no piranhas");
+    private TileGame tileGame;
+
+    public static final int WINDOW_WIDTH = 4000;
+    public static final int WINDOW_HEIGHT = 1000;
 
 
     public TileGameWindow() {
-        setPreferredSize(new Dimension(1000, TileGameWindow.WINDOW_HEIGHT));
+        setPreferredSize(new Dimension(WINDOW_WIDTH, TileGameWindow.WINDOW_HEIGHT));
         setBackground (Color.white);
 
+//        tileGame = new TileGame(this);
 
-        tileGame = new JFrame ("Undertale Tile Game");
-        tileGame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        tileGame.getContentPane().add(this);
-        tileGame.pack();
-        tileGame.setVisible(true);
+        window = new JFrame ("Undertale Tile Game");
+        window.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().add(this);
+        window.pack();
+        window.setVisible(true);
+
+        setComponents();
     }
 
-    public static void setPanels() {
+    public void setComponents() {
+        TITLE.setFont(new Font("ComicSans", Font.BOLD, 100));
+        TITLE.setHorizontalAlignment(SwingConstants.CENTER);
+        TITLE.setHorizontalTextPosition(SwingConstants.CENTER);
+        TITLE.setVerticalTextPosition(SwingConstants.TOP);
 
+        instructions.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+        instructions.setBounds(100, 300, WINDOW_WIDTH, 100);
+        instructions.setWrapStyleWord(true);
+
+        tileGame.setForeground(Color.RED);
+        tileGame.setBackground(Color.BLUE);
+        tileGame.setVisible(true);
+
+        add(TITLE);
+        add(instructions);
+        add(tileGame);
     }
 
     public static void main(String[] args) {
