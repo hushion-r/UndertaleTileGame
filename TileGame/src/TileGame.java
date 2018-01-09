@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class TileGame {
+public class TileGame extends JComponent {
     /*
     RED - impassable
     YELLOW - electric
@@ -27,12 +27,16 @@ public class TileGame {
     private static boolean electric = false;
 
     private JPanel tileGamePanel;
+    private Graphics g;
 
     private final Tile[][] board = new Tile[COLUMNS][ROWS];
     private final Color[] tileColors = {Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE, Color.BLUE, Color.MAGENTA, Color.PINK};
 
-    public TileGame(JPanel tileGamePanel) {
+    public TileGame(JPanel tileGamePanel, Graphics g) {
         this.tileGamePanel = tileGamePanel;
+        this.g = g;
+
+        drawBoard();
     }
 
     public void drawBoard() {
@@ -42,8 +46,8 @@ public class TileGame {
             for (Tile tile : tiles) {
                 Double doub = new Double(Math.random()*100 % tileColors.length);
                 tile = new Tile(tileColors[doub.intValue()], x, y);
+                drawTile(tile, tile.getTileColor());
                 x += Tile.TILE_LENGTH;
-//                tileGamePanel.add(tile);
                 x += 20;
             }
             y += Tile.TILE_LENGTH;
@@ -52,24 +56,30 @@ public class TileGame {
 
     }
 
+    public void drawTile(Tile tile, Color color){
+//        Graphics2D.setPaint(color);
+//        Graphics2D.fill(tile);
+//        Graphics2D.draw(tile);
+    }
 
-    public static void setPassable(boolean passable) {
+
+    public void setPassable(boolean passable) {
         TileGame.passable = passable;
     }
 
-    public static void setAttractsPiranhas(boolean attractsPiranhas) {
+    public void setAttractsPiranhas(boolean attractsPiranhas) {
         TileGame.attractsPiranhas = attractsPiranhas;
     }
 
-    public static void setDamage(boolean damage) {
+    public void setDamage(boolean damage) {
         TileGame.damage = damage;
     }
 
-    public static void setSlide(boolean slide) {
+    public void setSlide(boolean slide) {
         TileGame.slide = slide;
     }
 
-    public static boolean getAttractsPiranhas() {
+    public boolean getAttractsPiranhas() {
         return attractsPiranhas;
     }
 }
